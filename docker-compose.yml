@@ -1,0 +1,13 @@
+services:
+  mongodb:
+    image: "mongo:7.0.15"
+    ports:
+      - "27026:27025"
+  elixir:
+    build: .
+    container_name: elixir
+    depends_on:
+      - mongodb
+    volumes:
+      - ./test:/opt/test
+    entrypoint: mix test test/mongo/host_parser_test.exs
